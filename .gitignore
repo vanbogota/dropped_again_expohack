@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ### IntelliJ IDEA ###
 out/
 !**/src/main/**/out/
@@ -63,4 +62,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
->>>>>>> 5c6508ff4ce70b479d935e31d6c81c2550e68137
+
+# Default ignored files
+/shelf/
+/workspace.xml
