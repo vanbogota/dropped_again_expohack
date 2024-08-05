@@ -1,0 +1,66 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+public void addImageToWindow() {
+    // Создаем панель для отображения изображений
+    JPanel imagePanel = new JPanel();
+    imagePanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0)); // Горизонтальный layout без отступов
+
+    // Загружаем изображения
+    try {
+        String[] imagePaths = {
+            "src/resources/images/image1.jpg",
+            "src/resources/images/image2.jpg",
+            "src/resources/images/image3.jpg" // Добавьте пути к вашим изображениям
+        };
+
+        for (String imagePath : imagePaths) {
+            BufferedImage image = resizeImage(new File(imagePath), 100, 50); // Измените размер изображения
+            ImageIcon imageIcon = new ImageIcon(image);
+            JLabel imageLabel = new JLabel(imageIcon);
+            imagePanel.add(imageLabel); // Добавляем изображение в панель
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    // Создаем JScrollPane для прокрутки
+    JScrollPane scrollPane = new JScrollPane(imagePanel);
+    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_NEVER);
+    scrollPane.setPreferredSize(new Dimension(500, 50)); // Установите размер JScrollPane
+
+    // Добавляем JScrollPane в окно
+    add(scrollPane, BorderLayout.NORTH); // Добавляем в верхнюю часть окна
+
+    // Запускаем анимацию
+    Timer timer = new Timer(30, e -> {
+        // Сдвигаем панель с изображениями влево
+        imagePanel.setLocation(imagePanel.getX() - 1, imagePanel.getY());
+
+        // Если панель полностью вышла за пределы, перемещаем её обратно
+        if (imagePanel.getX() + imagePanel.getWidth() < 0) {
+            imagePanel.setLocation(getWidth(), imagePanel.getY());
+        }
+    });
+    timer.start();
+}
+public void mainWindow() {
+    // Ваш существующий код...
+
+    setSize(500, 475); // Увеличиваем высоту окна для нового поля
+    setLayout(new BorderLayout()); // Используем BorderLayout для размещения элементов
+    setTitle("Регистрация партнера");
+    setResizable(false);
+    setLocationRelativeTo(null);
+
+    addImageToWindow(); // Добавляем ленту изображений
+
+    // Остальная часть вашего кода...
+
+    setVisible(true);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+}
