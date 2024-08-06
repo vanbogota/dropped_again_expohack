@@ -40,7 +40,7 @@ public class productList extends JFrame {
         JTable table = new JTable(tableModel);
         JScrollPane scrollPane = new JScrollPane(table);
         scrollPane.setBounds(10, 50, 560, 300); // Устанавливаем размеры JScrollPane
-        List<productModel> products = operations.getAllProducts();
+        List<productModel> products = operations.getAllProductsWhereId();
 
         // Добавляем данные в модель таблицы
         for (productModel product : products) {

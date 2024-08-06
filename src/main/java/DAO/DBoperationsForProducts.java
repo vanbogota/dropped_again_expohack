@@ -1,7 +1,6 @@
 package DAO;
 
 import Model.productModel;
-import org.apache.commons.math3.stat.descriptive.summary.Product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -25,12 +24,22 @@ public class DBoperationsForProducts {
         String SQL="INSERT INTO products(name,description,price,promotions,partner_id) VALUES(?,?,?,?,?)";
         jdbcTemplate.update(SQL,product.getName(),product.getDescriptions(),product.getPrice(),product.getPromotions(),product.getPartnerId());
     }
-    public List<productModel> getAllProducts() {
+    public List<productModel> getAllProductsWhereId() {
         String sql = "SELECT * FROM products WHERE partner_id = ?";
         Long partnerId = Long.valueOf(environment.getProperty("user.id"));
         List<productModel> products = jdbcTemplate.query(sql, new Object[]{partnerId}, new BeanPropertyRowMapper<>(productModel.class));
 
         // Установка описания вручную для каждого продукта
+        for (productModel product : products) {
+            String sql2 = "SELECT description FROM products WHERE product_id = ?";
+            String description = jdbcTemplate.queryForObject(sql2, new Object[]{product.getProductId()}, String.class);
+            product.setDescriptions(description); // Установите нужное описание
+        }
+        return products;
+    }
+    public List<productModel> allProducts() {
+        String sql = "SELECT * FROM products";
+        List<productModel> products = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(productModel.class));
         for (productModel product : products) {
             String sql2 = "SELECT description FROM products WHERE product_id = ?";
             String description = jdbcTemplate.queryForObject(sql2, new Object[]{product.getProductId()}, String.class);

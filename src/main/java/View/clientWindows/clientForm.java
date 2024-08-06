@@ -1,6 +1,7 @@
 package View.clientWindows;
 
 import DAO.DBoperationsForClient;
+import View.BlackBoxAI.getProbability;
 import Model.clientModel;
 import View.mainWindow.salesWindow;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -208,7 +209,10 @@ public class clientForm extends JFrame {
                 client.setStatus((String) statusComboBox.getSelectedItem());
                 client.setDialogue(dialogueArea.getText());
 
-                if(!DAO.addClientToDB(client)){
+                if(DAO.addClientToDB(client)){
+                    getProbability probability=context.getBean("blackBoxAsk",getProbability.class);
+                    probability.createWindow(client);
+                }else{
                     AlsoWasClients alsoWasClients=context.getBean("clientExist",AlsoWasClients.class);
                     alsoWasClients.setNameAndBirthDate(birthDateField.getText(),clientNameField.getText());
                     alsoWasClients.setContext(context);
