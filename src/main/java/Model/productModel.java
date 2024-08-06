@@ -67,4 +67,14 @@ public class productModel {
     public void setPromotions(String promotions) {
         this.promotions = promotions;
     }
+    @Override
+    public String toString() {
+        return "productId=" + productId +
+                ", partnerId=" + partnerId +
+                ", description='" + description + '\'' +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", promotions='" + promotions + '\'' ;
+    }
+
 }

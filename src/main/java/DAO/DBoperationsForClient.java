@@ -41,6 +41,7 @@ public class DBoperationsForClient {
         jdbcTemplate.update("INSERT INTO clients (client_name, birthdate, gender, c_type, income, mobile_phone, email, address, workplace_income_amount, communication_history, interests, preferences, registration_date, status, dialogue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 client.getClientName(), client.getBirthDate(), client.getGender(), client.getClientType(), client.getIncome(), client.getMobile_phone(), client.getEmail(), client.getAddress(), client.getWorkplace_income_amount(), client.getCommunication_history(),
                 client.getInterests(), client.getPreferences(), client.getRegistration_date(), client.getStatus(), client.getDialogue());
+
         return true;
     }
     public boolean alsoWas(String name, String birthdate) {
