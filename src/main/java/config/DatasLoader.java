@@ -18,6 +18,7 @@ public class DatasLoader {
     public void save(String filePath) {
         try (FileOutputStream output = new FileOutputStream(filePath)) {
             properties.store(output, null); // null - это комментарий
+            System.out.println("Данные успешно сохранены в " + filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

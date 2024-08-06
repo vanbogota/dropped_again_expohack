@@ -1,4 +1,4 @@
-import View.partnerRegForm;
+import View.startReg.partnerRegForm;
 import config.SpringConfig;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

@@ -3,7 +3,7 @@ package Model;
 public class productModel {
     private long productId;
     private long partnerId;
-    private String descriptions;
+    private String description;
     private String name;
     private String price;
     private String promotions;
@@ -14,7 +14,7 @@ public class productModel {
     public productModel(long productId, long partnerId, String descriptions, String name, String price, String promotions) {
         this.productId = productId;
         this.partnerId = partnerId;
-        this.descriptions = descriptions;
+        this.description = descriptions;
         this.name = name;
         this.price = price;
         this.promotions = promotions;
@@ -37,11 +37,11 @@ public class productModel {
     }
 
     public String getDescriptions() {
-        return descriptions;
+        return description;
     }
 
     public void setDescriptions(String descriptions) {
-        this.descriptions = descriptions;
+        this.description = descriptions;
     }
 
     public String getName() {
