@@ -58,16 +58,21 @@ public class crmWindow extends JFrame {
         leftPanel.setBackground(Color.LIGHT_GRAY);
         leftPanel.setLayout(null);
         leftPanel.setBounds(0, 0, leftPanelWidth, screenHeight);
-
-        String[] columnNames = {"ФИО", "Статус лица", "Вероятность соответствия"};
+        String[] columnNames = {"ID", "ФИО", "Статус лица", "Вероятность соответствия"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
         resultTable = new JTable(tableModel);
         scrollPane = new JScrollPane(resultTable);
+        resultTable.getColumnModel().getColumn(0).setPreferredWidth(30); // ID
+        resultTable.getColumnModel().getColumn(1).setPreferredWidth(150); // ФИО
+        resultTable.getColumnModel().getColumn(2).setPreferredWidth(100); // Статус лица
+        resultTable.getColumnModel().getColumn(3).setPreferredWidth(200); // Вероятность соответствия
+
         scrollPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         scrollPane.setBounds(0, 0, leftPanelWidth, screenHeight);
         leftPanel.add(scrollPane);
         add(leftPanel);
 
+// Установка ширины столбцов
         JPanel rightPanel = new JPanel();
         rightPanel.setBackground(Color.WHITE);
         rightPanel.setLayout(null); // Сохраняем null layout для правой панели
