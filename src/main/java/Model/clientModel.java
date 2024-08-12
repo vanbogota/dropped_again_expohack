@@ -167,4 +167,24 @@ public class clientModel {
     public void setDialogue(String dialogue) {
         this.dialogue = dialogue;
     }
+
+    @Override
+    public String toString() {
+        return "id=" + id +
+                ", clientName='" + clientName + '\'' +
+                ", birthDate='" + birthDate + '\'' +
+                ", gender='" + gender + '\'' +
+                ", clientType='" + clientType + '\'' +
+                ", income='" + income + '\'' +
+                ", mobile_phone='" + mobile_phone + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", workplace_income_amount='" + workplace_income_amount + '\'' +
+                ", communication_history='" + communication_history + '\'' +
+                ", interests='" + interests + '\'' +
+                ", preferences='" + preferences + '\'' +
+                ", registration_date='" + registration_date + '\'' +
+                ", status='" + status + '\'' +
+                ", dialogue='" + dialogue + '\'';
+    }
 }

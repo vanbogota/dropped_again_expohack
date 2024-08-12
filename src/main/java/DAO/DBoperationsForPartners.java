@@ -13,7 +13,6 @@ import Model.partnerModel;
 import java.util.List;
 
 @Component("PartnerOperations")
-@PropertySource("classpath:datas.properties")
 public class DBoperationsForPartners {
     private final JdbcTemplate jdbcTemplate;
     @Autowired
@@ -21,7 +20,7 @@ public class DBoperationsForPartners {
         this.jdbcTemplate = jdbcTemplate;
     }
     public boolean insertINDB(partnerModel partnerModel){
-        DatasLoader datasLoader = new DatasLoader("src/resources/datas.properties");
+        DatasLoader datasLoader = new DatasLoader("src/main/java/config/datas.properties");
         try {
             String SQL = "INSERT INTO partners(name, description, address, date_of_foundation,password,questionAboutUs) VALUES(?, ?, ?, ?, ?,?)";
             jdbcTemplate.update(SQL, partnerModel.getName(), partnerModel.getDescription(), partnerModel.getAddress(),
@@ -33,7 +32,7 @@ public class DBoperationsForPartners {
                 datasLoader.setUserId(id);
                 datasLoader.setUserName(partnerModel.getName());
                 datasLoader.setUserPassword(partnerModel.getPassword());
-                datasLoader.save("src/resources/datas.properties");
+                datasLoader.save("src/main/java/config/datas.properties");
                 partnerModel.setId(id);
             } else {
                 System.out.println("Пользователь с логином " + partnerModel.getName() + " не найден.");
@@ -66,7 +65,7 @@ public class DBoperationsForPartners {
         }
     }
     public boolean accessToLoginAUTO(){
-        DatasLoader datasLoader = new DatasLoader("src/resources/datas.properties");
+        DatasLoader datasLoader = new DatasLoader("src/main/java/config/datas.properties");
         String SQL = "SELECT id FROM partners WHERE name = ? AND password = ?";
         try {
             Integer id = jdbcTemplate.queryForObject(SQL, new Object[]{datasLoader.getUserName(), datasLoader.getUserPassword()}, Integer.class);

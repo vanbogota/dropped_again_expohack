@@ -1,9 +1,11 @@
 package DAO;
 
 import Model.clientModel;
+import Model.productModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.jdbc.core.RowMapper;
@@ -14,36 +16,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-@PropertySource("classpath:datas.properties")
 public class DBoperationsForClient {
-    private final Environment environment;
     private final JdbcTemplate jdbcTemplate;
     @Autowired
-    public DBoperationsForClient(Environment environment, JdbcTemplate jdbcTemplate) {
-        this.environment = environment;
+    public DBoperationsForClient( JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    public boolean addClientToDB(clientModel client){
+    public boolean addClientToDB(clientModel client) {
         if (alsoWas(client.getClientName(), client.getBirthDate())) {
             int response = JOptionPane.showConfirmDialog(
                     null,
-                    "Вероятнее всего, такой клиент уже существует. Перепроверьте его данные или спросите его. Хотите продолжить создание нового клиента?(Да-создать нового клиента,Нет-увидеть список клиентов с такими же данными)",
+                    "Вероятнее всего, такой клиент уже существует. Перепроверьте его данные или спросите его. Хотите продолжить создание нового клиента?\n(Да-создать нового клиента,Нет-увидеть список клиентов с такими же данными)",
                     "Подтверждение",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE
             );
-
             if (response == JOptionPane.NO_OPTION) {
                 return false;
             }
         }
+
         jdbcTemplate.update("INSERT INTO clients (client_name, birthdate, gender, c_type, income, mobile_phone, email, address, workplace_income_amount, communication_history, interests, preferences, registration_date, status, dialogue) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 client.getClientName(), client.getBirthDate(), client.getGender(), client.getClientType(), client.getIncome(), client.getMobile_phone(), client.getEmail(), client.getAddress(), client.getWorkplace_income_amount(), client.getCommunication_history(),
                 client.getInterests(), client.getPreferences(), client.getRegistration_date(), client.getStatus(), client.getDialogue());
 
+        Long lastInsertedId = jdbcTemplate.queryForObject("SELECT MAX(client_id) FROM clients", Long.class);
+        client.setId(lastInsertedId);
+
         return true;
     }
+
+
+
     public boolean alsoWas(String name, String birthdate) {
         String sql = "SELECT COUNT(*) FROM clients WHERE client_name = ? AND birthdate = ?";
 
@@ -144,5 +149,15 @@ public class DBoperationsForClient {
                 client.getDialogue(),
                 id // Указываем id клиента, которого нужно обновить
         );
+    }
+    public List<clientModel> allClients(){
+        String sql = "SELECT * FROM clients";
+        List<clientModel> clients = jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(clientModel.class));
+        return clients;
+    }
+    public List<clientModel> allClients(int endPoint) {
+        String sql = "SELECT * FROM clients LIMIT ?";
+        List<clientModel> clients = jdbcTemplate.query(sql, new Object[]{endPoint}, new BeanPropertyRowMapper<>(clientModel.class));
+        return clients;
     }
 }

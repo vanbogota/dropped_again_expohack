@@ -15,6 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component("regForm")
@@ -30,6 +31,8 @@ public class partnerRegForm extends JFrame {
     }
 
     private final AtomicBoolean draw = new AtomicBoolean(true);
+
+    private CountDownLatch latch;
 
     private DBoperationsForPartners operations;
 
@@ -157,11 +160,14 @@ public class partnerRegForm extends JFrame {
                 } catch (InterruptedException exc) {
                     exc.printStackTrace();
                 }
+                crmWindow crmWindow = context.getBean("crm", crmWindow.class);
+                crmWindow.setContext(context);
             }
         });
         setVisible(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
+
     private void showQuestionDialog() {
         // Создаем текст для всплывающего окна
         String message = "Введите ваш вопрос о своей компании ,который позволял бы менеджеру задавать его клиентам";
@@ -175,10 +181,10 @@ public class partnerRegForm extends JFrame {
         optionPane.setOptions(new Object[]{continueButton}); // Устанавливаем кнопку в качестве опции
         dialog.setVisible(true);
     }
+
     class callDBInsert extends Thread {
         private final partnerModel partner;
         private final DBoperationsForPartners dBoperationsForPartners;
-
         public callDBInsert(partnerModel partner, DBoperationsForPartners dBoperationsForPartners) {
             this.partner = partner;
             this.dBoperationsForPartners = dBoperationsForPartners;
@@ -192,10 +198,6 @@ public class partnerRegForm extends JFrame {
                 });
             } else {
                 dBoperationsForPartners.insertINDB(partner);
-                SwingUtilities.invokeLater(() -> {
-                    crmWindow crmWindow = context.getBean("crm", crmWindow.class);
-                    crmWindow.setContext(context);
-                });
             }
         }
     }

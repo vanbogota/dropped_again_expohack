@@ -4,15 +4,17 @@ public class clientModelToRecomendations {
     private int reccomendationID;
     private int client_ID;
     private int product_ID;
-    private int probability;
+    private String probability;
+    private int recomendedTo;
     public clientModelToRecomendations() {
     }
 
-    public clientModelToRecomendations(int reccomendationID, int client_ID, int product_ID, int probability) {
+    public clientModelToRecomendations(int reccomendationID, int client_ID, int product_ID, String probability, int recomendedTo) {
         this.reccomendationID = reccomendationID;
         this.client_ID = client_ID;
         this.product_ID = product_ID;
         this.probability = probability;
+        this.recomendedTo = recomendedTo;
     }
 
     public int getReccomendationID() {
@@ -39,11 +41,19 @@ public class clientModelToRecomendations {
         this.product_ID = product_ID;
     }
 
-    public int getProbability() {
+    public String getProbability() {
         return probability;
     }
 
-    public void setProbability(int probability) {
+    public void setProbability(String probability) {
         this.probability = probability;
+    }
+
+    public int getRecomendedTo() {
+        return recomendedTo;
+    }
+
+    public void setRecomendedTo(int recomendedTo) {
+        this.recomendedTo = recomendedTo;
     }
 }

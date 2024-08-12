@@ -84,7 +84,7 @@ public class addProduct extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 for (int i = 0; i < model.getRowCount(); i++) {
                     productModel product = new productModel();
-                    DatasLoader datasLoader = new DatasLoader("src/resources/datas.properties");
+                    DatasLoader datasLoader = new DatasLoader("src/main/java/config/datas.properties");
                     String name = (String) model.getValueAt(i, 0);
                     String description = (String) model.getValueAt(i, 1);
                     String price = (String) model.getValueAt(i, 2);

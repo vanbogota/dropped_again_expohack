@@ -17,7 +17,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="1b9cc20f-641b-4baf-8589-d0cf4c52d28c">
-      <console name="Connection" type="STANDARD" schema="public" session="Main" />
+      <console name="Connection" type="STANDARD" schema="public" session="Main"><![CDATA[delete from partners where 1=1]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -141,7 +141,7 @@
     <browser-settings>
       <general>
         <display-mode value="TABBED" />
-        <navigation-history-size value="100" />
+        <navigation-history-size value="1000" />
         <show-object-details value="false" />
         <enable-sticky-paths value="true" />
       </general>
@@ -245,7 +245,7 @@
         <data-length-threshold value="250" />
       </values-actions-popup>
       <general>
-        <fetch-block-size value="100" />
+        <fetch-block-size value="1000" />
         <fetch-timeout value="30" />
         <trim-whitespaces value="true" />
         <convert-empty-strings-to-null value="true" />
