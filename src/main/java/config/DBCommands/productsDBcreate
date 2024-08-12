@@ -1,9 +1,0 @@
-CREATE TABLE products(
-    product_id serial,
-    name TEXT,
-    description TEXT,
-    price TEXT,
-	partner_id bigint,
-	promotions TEXT,
-    PRIMARY KEY (product_id)
-);
