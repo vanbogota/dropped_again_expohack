@@ -1,0 +1,19 @@
+CREATE TABLE clients (
+  client_id bigserial NOT NULL,
+  client_name text,
+  birthdate text,
+  gender text,
+  c_type text,
+  income text,
+  mobile_phone text,
+  email text,
+  address text,
+  workplace_income_amount text,
+  communication_history text,
+  interests text,
+  preferences text,
+  registration_date text,
+  status text,
+  dialogue text,
+  PRIMARY KEY (client_id)
+);
